@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 # <HINT> Import any new Models here
-from .models import Course, Enrollment
+from .models import Course, Enrollment, Question, Choice
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
@@ -70,7 +70,6 @@ def check_if_enrolled(user, course):
     return is_enrolled
 
 
-# CourseListView
 class CourseListView(generic.ListView):
     template_name = 'onlinecourse/course_list_bootstrap.html'
     context_object_name = 'course_list'
@@ -87,6 +86,14 @@ class CourseListView(generic.ListView):
 class CourseDetailView(generic.DetailView):
     model = Course
     template_name = 'onlinecourse/course_detail_bootstrap.html'
+    #context_object_name = 'questions'
+    #queryset = Question.objects.all()
+    
+    #def get_object(self):
+    #    #questions = Question.objects
+    #    id_ = self.kwargs.get("id")
+    #    #print(f"id={id_}")
+    #    return get_object_or_404(Question, id=1)
 
 
 def enroll(request, course_id):
